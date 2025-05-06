@@ -3,7 +3,7 @@ import {
   computed,
   effect,
   input,
-  output,
+  model,
   signal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -25,7 +25,7 @@ import { Cocktail } from 'app/shared/interfaces';
       <li
         class="px-12 py-6 item"
         [class.active-item]="cocktail._id === selectedCocktailId()"
-        (click)="selectCocktailId.emit(cocktail._id)"
+        (click)="selectedCocktailId.set(cocktail._id)"
       >
         <h3>{{ cocktail.name }}</h3>
       </li>
@@ -54,8 +54,7 @@ export class CocktailsListComponent {
   search = signal<string>('');
   cocktails = input<Cocktail[]>();
 
-  selectedCocktailId = input<string | null>(null);
-  selectCocktailId = output<string>();
+  selectedCocktailId = model<string | null>(null);
 
   filteredCocktails = computed(() =>
     this.cocktails()?.filter((c) =>

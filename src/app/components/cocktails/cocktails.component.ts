@@ -1,8 +1,6 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { CocktailsListComponent } from './components/cocktails-list.component';
 import { CocktailDetailsComponent } from './components/cocktail-details.component';
-import { Cocktail } from 'app/shared/interfaces';
-import { cocktails } from 'app/shared/data';
 import { CocktailsService } from 'app/shared/services/cocktails.service';
 
 @Component({
@@ -11,8 +9,7 @@ import { CocktailsService } from 'app/shared/services/cocktails.service';
   template: `
     <app-cocktails-list
       [cocktails]="cocktails()"
-      [selectedCocktailId]="selectedCocktailId()"
-      (selectCocktailId)="selectedCocktailId.set($event)"
+      [(selectedCocktailId)]="selectedCocktailId"
       class="w-half card"
     />
 

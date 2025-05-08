@@ -43,3 +43,13 @@ body {
 
 .btn-success {
 }
+
+.btn-like {
+  background-color: var(--like);
+  color: white;
+}
+.btn-unlike {
+  border: 1px solid var(--like);
+  background-color: white;
+  color: var(--like);
+}

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Cocktail } from 'app/shared/interfaces';
 
 @Component({
@@ -14,10 +14,22 @@ import { Cocktail } from 'app/shared/interfaces';
     <p class="mb-20">{{ c.description }}</p>
     <h3>recette</h3>
     <ul class="ingredient">
-      @for (ingredient of c.ingredients; track ingredient) {
+      @for (ingredient of c.ingredients; track $index) {
       <li>{{ ingredient }}</li>
       }
     </ul>
+    <div class="detailBottom">
+      @if(isliked()){
+      <button class="btn btn-unlike" (click)="unLikedCocktailId.emit(c._id)">
+        unlike !
+      </button>
+      } @else {
+      <button class="btn btn-like" (click)="likedCocktailId.emit(c._id)">
+        like !
+      </button>
+
+      }
+    </div>
   `,
   styles: `
     :host {
@@ -31,8 +43,19 @@ import { Cocktail } from 'app/shared/interfaces';
     display: flex;
     justify-content: center;
     }
+    .detailBottom{
+      padding:20px;
+      display:flex;
+      justify-content: flex-end;
+    }
+    .likeButton{
+
+    }
   `,
 })
 export class CocktailDetailsComponent {
   selectedCocktail = input.required<Cocktail>();
+  isliked = input.required<boolean>();
+  likedCocktailId = output<string>();
+  unLikedCocktailId = output<string>();
 }
